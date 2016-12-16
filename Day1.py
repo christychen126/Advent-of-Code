@@ -23,6 +23,13 @@ direction_dict = {
                     "W": {"R": "N", "L": "S"}
                 }
 
+direction_block_dict = { 
+                    "N": {"R": (1, 0), "L": (-1,0)},
+                    "E": {"R": (0, -1), "L": (0,1)},
+                    "S": {"R": (-1, 0), "L": (1,0)},
+                    "W": {"R": (0, 1), "L": (0, -1)}
+                }
+
 def getdistance(direction_list):
     """get distance.
 
@@ -51,4 +58,39 @@ def getdistance(direction_list):
     
     return distance
 
-print getdistance(direction_list)
+def get_location(direction_list):
+    """get distance.
+
+    >>> get_location(["R8", "R4", "R4", "R8"])
+    4
+
+    """
+
+    location_list = [(0,0)]
+    starting_location = (0,0)
+    facing = "N"
+
+    for direction in direction_list:
+        turn = direction[0]
+        block = int(direction[1:])
+        for n in range(block):
+            new_location = (starting_location[0]+ direction_block_dict[facing][turn][0],
+                starting_location[1]+ direction_block_dict[facing][turn][1])
+            if not new_location in location_list:
+                location_list.append(new_location)
+                starting_location=new_location
+            else: 
+                return abs(new_location[0]) + abs(new_location[1])
+        facing = direction_dict[facing][turn]
+                
+
+
+
+
+
+
+
+
+
+
+
