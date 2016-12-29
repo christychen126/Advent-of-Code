@@ -39,4 +39,39 @@ def check_real_room(room_list):
     return id_sum
 
 room_list = parsing_input(sys.argv[1])
-print check_real_room(room_list)
+# print check_real_room(room_list)
+
+
+
+def get_room_name(room_list):
+
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+
+    for room in room_list:
+     
+        room_name = ''
+        shift_num = room[1] % 26
+        
+        for char in room[2]:
+            
+            if char == "-":
+                room_name += " "
+            else:     
+                new_index = alphabet.index(char) + shift_num
+                if new_index > 25:
+                    new_index -= 26
+
+                room_name += alphabet[new_index]
+
+
+        print room_name, room[1]
+
+
+get_room_name(room_list)
+
+
+
+
+
+
+
