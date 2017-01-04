@@ -1,3 +1,4 @@
+"""Part1
 with open('input-Day7.txt') as inp:
     count_IP = 0
     for line in inp:
@@ -28,3 +29,46 @@ with open('input-Day7.txt') as inp:
             is_IP = False
 
 print count_IP
+"""
+
+
+#part2 
+
+with open('input-Day7.txt') as inp:
+    count_IP = 0
+    for line in inp:
+        line = line.strip()
+        #print line
+        inside_bracket = False
+        inside_set = set()
+        outside_set = set()
+        for index, char in enumerate(line):
+            if index<len(line)-2:
+                if char == "[":
+                    inside_bracket = True
+                if char == "]":
+                    inside_bracket = False
+                if char == line[index+2] and char != line[index+1] and not inside_bracket:
+                    outside_set.add(line[index:index+3])
+                if char == line[index+2] and char != line[index+1] and inside_bracket:
+                    inside_set.add(line[index:index+3])
+
+        is_IP = False
+        for in_item in inside_set:
+            for out_item in outside_set:
+                if in_item[0] == out_item[1] and in_item[1] == out_item[0]:
+                    is_IP = True
+                    break
+        if is_IP:
+            count_IP += 1 
+
+
+print count_IP
+
+
+
+
+
+
+
+
